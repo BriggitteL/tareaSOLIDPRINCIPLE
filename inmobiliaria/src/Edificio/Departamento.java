@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package EntidadesInmobiliaria;
+package Edificio;
+
+import Edificio.Modelo;
+import EntidadesInmobiliaria.Urbanizacion;
+import static Validacion.Validaciones.sc;
 
 /**
  *
  * @author Ronny Segura
  */
-public class Departamento extends Modelo{
+public class Departamento extends Modelo {
 
     
     
@@ -65,4 +69,6 @@ public class Departamento extends Modelo{
     public void setAscensor(String ascensor) {
         this.ascensor = ascensor;
     }
+
+    
 }

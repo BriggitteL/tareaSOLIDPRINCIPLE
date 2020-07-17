@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package EntidadesInmobiliaria;
+package Edificio;
+
+import Edificio.Modelo;
+import EntidadesInmobiliaria.Urbanizacion;
+import static Validacion.Validaciones.sc;
 
 /**
  *
@@ -42,6 +46,8 @@ public class Casa extends Modelo{
     public void setImagenRuta(String imagenRuta) {
         this.imagenRuta = imagenRuta;
     }
+
+    
 
    
     

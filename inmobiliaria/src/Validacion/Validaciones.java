@@ -3,8 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package EntidadesInmobiliaria;
+package Validacion;
 
+import Edificio.Departamento;
+import Edificio.Casa;
+import Edificio.Modelo;
+import EntidadesInmobiliaria.Etapa;
+import EntidadesInmobiliaria.Inmobiliaria;
+import EntidadesInmobiliaria.Lotes;
+import EntidadesInmobiliaria.Urbanizacion;
 import Persona.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -182,46 +189,7 @@ public class Validaciones {
      * @param nombreUsuario nombreUsuario
      * @return lista de usuarios
      */
-    public static List<Usuario> validarNombreUsuario(String nombreUsuario) {
-        nombreUsuario = nombreUsuario.toUpperCase();
-        List<Usuario> lu = new ArrayList<>();
-        boolean opcion = false;
-        do {
-            nombreUsuario = nombreUsuario.toUpperCase();
-            for (Usuario us : Inmobiliaria.usuarios) {
-                if (us.getNombre().equals(nombreUsuario)) {
-                    lu.add(us);
-                }
-            }
-            if (lu.isEmpty()) {
-                System.out.println("Usted mo esta registrado en el sistenma");
-                System.out.println("Ingrese un usuario valido");
-                nombreUsuario = sc.nextLine();
-            } else {
-                opcion = true;
-                return lu;
-            }
-
-        } while (opcion == false);
-
-        return null;
-    }
-    public static Usuario validarContrasenaUsuario(List<Usuario> lu, String contrasena) {
-        boolean opcion = false;
-        do {
-            for (Usuario u : lu) {
-                if (u.getContrasena().equals(contrasena)) {
-                    opcion = true;
-                    return u;
-                } else {
-                    System.out.println("Contrasena incorrecta!\nIngrese otra vez su contraseña: ");
-                    contrasena = sc.nextLine();
-                }
-            }
-        } while (opcion == false);
-
-        return null;
-    }
+   
     
     /**
      * Metodo que enviar un correo al usuario registrado
@@ -273,179 +241,8 @@ public class Validaciones {
         return null;
     }
     
-   
-    
-     public static Usuario pedirleInformacionUsuario() {
-        System.out.println("Ingrese su nombre: ");
-        String nombreUsuario = sc.nextLine();
-        List<Usuario> lu = Validaciones.validarNombreUsuario(nombreUsuario);
-        System.out.println("Ingrese su contrasena: ");
-        String contrasena = sc.nextLine();
-        Usuario u = Validaciones.validarContrasenaUsuario(lu, contrasena);
-        return u;
-    }
-     
-    public static String validaNombreModelo(String palabra) {
-        palabra = palabra.toUpperCase();
-        while (!(palabra.equals("CASA") | palabra.equals("DEPARTAMENTO"))) {
-            System.out.println("Ingrese una opcion válida");
-            palabra = sc.next();
-            palabra = palabra.toUpperCase();
 
-        }
-        return palabra;
-    } 
-    
-    
-    
-    
-    public static String validarNombreCasa(String tipo){
-        tipo = tipo.toUpperCase();
-        while (!(tipo.equals("SIMPLE") | tipo.equals("DOBLE"))) {
-            System.out.println("Ingrese una opcion válida");
-            tipo = sc.next();
-            tipo = tipo.toUpperCase();
-
-        }
-        return tipo;
-    } 
-    
-    public static String validarNombreDepartamento(String tipo2){
-        tipo2 = tipo2.toUpperCase();
-        while (!(tipo2.equals("MIXTO") | tipo2.equals("RESIDENCIALES"))) {
-            System.out.println("Ingrese una opcion válida");
-            tipo2 = sc.next();
-            tipo2 = tipo2.toUpperCase();
-
-        }
-        return tipo2;
-    }
-    
-    public static List<Etapa> validaEtapaNombre(String nombre){
-        List<Etapa> eta = new ArrayList<>();
-        for ( Etapa e : Inmobiliaria.etapas){
-            if(e.getNombreEtapa().equalsIgnoreCase(nombre)){
-                eta.add(e);
-            }
-        
-        }
-        return eta;
-    }
-    
-    public static List<Lotes> validaLoteCodigo(int codigo){
-        List<Lotes> lot = new ArrayList<>();
-        for ( Lotes l : Inmobiliaria.lotes){
-            if(l.getCodigo()==codigo){
-                lot.add(l);
-            }
-        }
-        return lot;
-    }
-    
-    public static List<Urbanizacion> validarUrba(String nombre){
-        List<Urbanizacion> u = new ArrayList<>();
-        for ( Urbanizacion ru : Inmobiliaria.urbanizaciones){
-            if(ru.getNombreUrbanizacion().equalsIgnoreCase(nombre)){
-                u.add(ru);
-                
-            }
-        }
-        return u;
-    }
-    
-    public static void validaUrbani(String nombre){
-        for(Urbanizacion ur: Inmobiliaria.urbanizaciones){
-            if(ur.getNombreUrbanizacion().equalsIgnoreCase(nombre)){
-                ur.mostrarDatosEtapa();
-            } else{ System.out.println("No hay Urbanizaciones con ese Nombre");}
-        }
-    }
-    
-    public static List<Modelo> busquedaPorNombre(String nombre) {
-        List<Modelo> ti = new ArrayList<>();
-        for (Modelo u :Inmobiliaria.modelos) {
-            if (u instanceof Casa) {
-                Casa c = (Casa) u;
-                if (c.getNombre().equalsIgnoreCase(nombre)) {
-                    ti.add(c);
-                }
-            }
-            else if( u instanceof Departamento ){
-                    Departamento d =(Departamento)u;
-                    if(d.getNombre().equalsIgnoreCase(nombre)){
-                        ti.add(d);
-                }
-            }
-        }
-        return ti;
-    }
-    
-////    public static List<Urbanizacion> busquedaPorPrecio( Modelo modelo) {
-////        List<Urbanizacion> le = new ArrayList<>();
-////        for (Usuario u : Inmobiliaria.usuarios) {
-////            if (u instanceof Urbanizacion) {
-////                Urbanizacion e = (Urbanizacion) u;
-////                if (e.getModelo().equals(modelo)) {
-////                    le.add(e);
-////                }
-////            }
-////        }
-////        return le;
-////    }
-    
-    
-    
-    public static List<Modelo> busquedaPorDepartamento(String nombre){
-         List<Modelo> ti = new ArrayList<>();
-        for (Modelo u :Inmobiliaria.modelos) {
-            if (u instanceof Departamento) {
-                Departamento d = (Departamento) u;
-                if (d.getNombre().equalsIgnoreCase(nombre)) {
-                    ti.add(d);
-                }
-            }
-        }   return ti; 
-    }
-    public static List<Modelo> buscarCa(String detalle,int planta,int cuarto,int baño){
-        List<Modelo> opciones = new ArrayList<>();
-        for (Modelo m :Inmobiliaria.modelos) {
-            if (m instanceof Casa) {
-                Casa d = (Casa) m;
-                if (d.getNombre().equalsIgnoreCase(detalle)) {                    
-                    if (d.getNumeroPlantas() == planta || d.getNumeroCuarto()==cuarto || d.getNumeroBaños()== baño){
-                        for(Modelo op: opciones){
-                            if  (!(op.getNombre()).equals(d.getNombre()))
-                                opciones.add(m);
-                        }
-                        
-                    }
-                    
-                }    
-            }
-        }
-        return opciones;
-    }
-    
-
-     public static List<Modelo> buscarDe(String detalle,int cuarto,int baño){
-        List<Modelo> opciones = new ArrayList<>();
-         for (Modelo m :Inmobiliaria.modelos) {
-            if (m instanceof Departamento) {
-                Departamento d = (Departamento) m;
-                if (d.getNombre().equalsIgnoreCase(detalle)) {                    
-                    if ( d.getNumeroCuarto()==cuarto || d.getNumeroBaños()== baño){
-                        for(Modelo op: opciones){
-                            if  (!(op.getNombre()).equals(d.getNombre()))
-                                opciones.add(m);
-                        }
-                        
-                    }
-                    
-                }    
-            }
-        }
-        return opciones;
-    }
+  
     public static double cotizarPorPreccio(double mensualidad){
         double plazo1= plazo*12;
         double interes1 =  interes/1200; 

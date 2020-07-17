@@ -5,6 +5,9 @@
  */
 package EntidadesInmobiliaria;
 
+import Edificio.Departamento;
+import Edificio.Casa;
+import Edificio.Modelo;
 import Persona.Usuario;
 import java.util.ArrayList;
 import java.util.List;

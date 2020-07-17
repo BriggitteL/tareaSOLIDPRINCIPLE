@@ -6,16 +6,20 @@
 package Inmobiliaria;
 
 import Persona.Administrador;
-import EntidadesInmobiliaria.Casa;
-import EntidadesInmobiliaria.Departamento;
+import Edificio.Casa;
+import Edificio.Departamento;
 import EntidadesInmobiliaria.Etapa;
 import EntidadesInmobiliaria.Inmobiliaria;
 import EntidadesInmobiliaria.Lotes;
-import EntidadesInmobiliaria.Modelo;
+import Edificio.Modelo;
 import EntidadesInmobiliaria.Urbanizacion;
 import Persona.Usuario;
-import EntidadesInmobiliaria.Validaciones;
+import Validacion.Validaciones;
 import Persona.Vendedor;
+import Validacion.Busqueda;
+import Validacion.ValidacionesEdificio;
+import Validacion.ValidacionesInmobiliaria;
+import Validacion.ValidarPersona;
 import java.util.List;
 import java.util.Scanner;
 import javafx.scene.image.ImageView;
@@ -396,7 +400,7 @@ public class menu {
                     int num1 = Integer.parseInt(planta);
                     int num2 = Integer.parseInt(cuartos);
                     int num3= Integer.parseInt(baños);
-                    List<Modelo> casas = Validaciones.buscarCa(detalle, num1, num2, num3);
+                    List<Modelo> casas = Busqueda.buscarCa(detalle, num1, num2, num3);
                     for (Modelo m: casas){
                         System.out.println(m);
                     }
@@ -420,7 +424,7 @@ public class menu {
     
     
     public void rUsuario(){
-        Usuario a = Validaciones.pedirleInformacionUsuario();
+        Usuario a = ValidarPersona.pedirleInformacionUsuario();
         if (a instanceof Vendedor){
             System.out.println("Usted no puede ingresar a esta opcion!");
             main.menu();
@@ -503,7 +507,7 @@ public class menu {
         System.out.println("Ingrese el Nombre o (tipo) de Casa: ");
         String codigo2 = sc.nextLine();
         //codigo2 = Validaciones.validarNombreCasa(codigo2);
-        d = Validaciones.busquedaPorNombre(codigo2);
+        d = Busqueda.busquedaPorNombre(codigo2);
          if (d != null){
             System.out.println(d);
         }else{System.out.println("No hay Casas con ese Nombre");}
@@ -513,8 +517,8 @@ public class menu {
         List<Modelo> d;
         System.out.println("Ingrese el Nombre o (tipo) de Departarmento: ");
         String nombre = sc.nextLine();
-        String nombre2 = Validaciones.validarNombreDepartamento(nombre);
-        d = Validaciones.busquedaPorNombre(nombre2);
+        String nombre2 = ValidacionesEdificio.validarNombreDepartamento(nombre);
+        d = Busqueda.busquedaPorNombre(nombre2);
         if (d != null){
             System.out.println(d);
         }else{System.out.println("No hay Departamento con ese Nombre");}
@@ -524,7 +528,7 @@ public class menu {
         List<Modelo> m;
         System.out.println("ingrese el tipo de modelo");
         String mo = sc.nextLine();
-        mo =  Validaciones.validaNombreModelo(mo);
+        mo =  ValidacionesEdificio.validaNombreModelo(mo);
         
     }
     
@@ -532,7 +536,7 @@ public class menu {
         List<Etapa> p;
             System.out.println("Ingrese el Nombre de la Etapa: ");
             String nombre = sc.nextLine();
-            p = Validaciones.validaEtapaNombre(nombre);
+            p = ValidacionesInmobiliaria.validaEtapaNombre(nombre);
             if (p != null){
                 System.out.println(p);
             } else{ System.out.println("No hay etapa con ese nombre");}
@@ -546,7 +550,7 @@ public class menu {
             System.out.println("Ingrese el codigo del lote: ");
             String nombre = sc.nextLine();
             int nombre1 = Validaciones.validarEntero(nombre);
-            L = Validaciones.validaLoteCodigo(nombre1);
+            L = ValidacionesInmobiliaria.validaLoteCodigo(nombre1);
             if (L != null){
                 System.out.println(L);
             } else{ System.out.println("No hay Lotes con ese nombre");}
@@ -557,7 +561,7 @@ public class menu {
         System.out.println("Ingrese el nombre de la Urbanizacion");
         String urbaniza = sc.nextLine();
         urbaniza = Validaciones.validarString(urbaniza);
-        urb = Validaciones.validarUrba(urbaniza);
+        urb = ValidacionesInmobiliaria.validarUrba(urbaniza);
         if (urb != null){
             System.out.println(urb);
         }else{ System.out.println("No hay Urbanizaciones con ese nombre");}
@@ -583,7 +587,7 @@ public class menu {
     }
     
     public void validacionCrearCasas(){
-        Usuario u = Validaciones.pedirleInformacionUsuario();
+        Usuario u = ValidarPersona.pedirleInformacionUsuario();
         if(u instanceof Administrador){
             main.crearCasa();
         }
@@ -678,7 +682,7 @@ public class menu {
     }
     
     public void crearUrbanizacion(){
-        Usuario sr = Validaciones.pedirleInformacionUsuario();
+        Usuario sr = ValidarPersona.pedirleInformacionUsuario();
                 if(sr instanceof Administrador){
                 Etapa e;
                 Modelo m;
@@ -720,7 +724,7 @@ public class menu {
     public void crearModelo(){
         System.out.println("Ingrese el tipo de Modelo que posee: ");
         String mo = sc.nextLine();
-        mo = Validaciones.validaNombreModelo(mo);
+        mo = ValidacionesEdificio.validaNombreModelo(mo);
         Modelo mod = Inmobiliaria.consultarModelo(mo);
         if (mod == null && mo.equalsIgnoreCase("CASA") ){
             main.crearCasa();

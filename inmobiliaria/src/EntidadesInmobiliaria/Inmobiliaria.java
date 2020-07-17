@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package EntidadesInmobiliaria;
+import Edificio.Departamento;
+import Edificio.Casa;
+import Edificio.Modelo;
 import Persona.Usuario;
 import java.io.File;
 import java.io.PrintWriter;
